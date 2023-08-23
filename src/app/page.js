@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import TypingAnimation from './components/TypingAnimation';
 
 export default function Home() {
   const [ userInput, setUserInput ] = useState('');
@@ -72,6 +73,14 @@ export default function Home() {
       </div>
 
     </div>
+
+    {isLoading && 
+    <div key={chatLog.length} className='flex justify-start'>
+      <div className='bg-gray-800 rounded-lg p-4 text-white max-w-sm'>
+        <TypingAnimation/>
+      </div>
+    </div>
+      }
 
     
 
