@@ -21,7 +21,7 @@ export default function Home() {
   }
 
   const sendMessage = async (message) => {
-    const url = 'https://api.openai.com/v1/chat/completions';
+    const url = '/api/chat';
 
     const headers = {
       'Content-type': 'application/json',
