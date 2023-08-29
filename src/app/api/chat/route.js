@@ -1,26 +1,27 @@
-import axios from "axios";
+import { NextResponse } from 'next/server';
+import axios from 'axios';
 
-
-export async function POST(req) {
+export async function POST() {
   try {
-    const { body } = req;
-    const url = "https://api.openai.com/v1/chat/completions";
-    const headers = {
-      "Content-type": "application/json",
-      "Authorization": `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`
-    };
 
-    const response = await axios.post(url, body, { headers: headers });
-
-    return new Response(JSON.stringify(response.data), { // Pass response.data as the body
-      status: 201,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}` // Set the Content-Type header
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+        },
       }
-    });
+    );
+
+    const data = response.data;
+    return NextResponse.json(data), {
+      status: 200,
+    };
   } catch (error) {
-    return new Response('Something went wrong', 
-    { status: 500 });
+    console.log(error);
+    return NextResponse('An error occurred while fetching data.', {
+      status: 500,
+    });
   }
 }
